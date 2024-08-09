@@ -1,0 +1,587 @@
+o uso de redes neurais nos fornece as seguintes propriedades uteirs e capacidades:
+
+    1 Nao-linearidade: Um neoronio artificial pode ser linear ou nao-linear. Uma rede neural, contituida por conexoes de
+neuronios
+    nao-lineares eh ela mesma nao-linear.
+
+    2 Mapeamento de Entrada-Saida: um paradigma popular de aprendizagem chamado aprendizagem com um professor ou aprendizagem
+supervizionada envolve a modificaçao dos pesoas sinapticos de uma rede neural pela aplicaçao de um conjunto de amostras de
+treinamento rotuladas ou exemplos de tarefa. Cada exemplo consite de um sinal de entrada unico e de uma resposta desejada
+correspondente. Apresenta-se para a rede um exemplo escolhido ao acaso do conjunto, e os pesos sinapticos (parametros livres) da
+rede sao modificados para minimizar a diferença entre a resposta desejada e a resposta real da rede, produzida pelo sinal de
+entrada, de acordo com um criterio estatistico apropriado. O treinamento eh repetido para muitos exemplos do conjjunto ate que a
+rede alcance um estado estavel onde nao haja mais modificacoes significativas nos pesos sinapticos.Os exemplos de treinamento
+previamente aplicados podem ser reaplicados durante a sessao de treinamento , mas em uma ordem diferente. Assim, a rede aprende
+dos exemplos ao construir um mapeamento de entrada-saida para o problema considerado.
+
+    3 Adaptabilidade: As redes neurais tem uma capacidade inata de adaptar seu pesos sinapticos a modificaçoes do meio ambiente.
+Em particular, uma rede neural treinada para operar em um ambiente especifico pode ser facilmente retreinada para lidar com
+pequenas modificaçoes nas condiçoes operativas do ambiente. Alem disso, quando esta operando em um ambiente
+nao-estacionario(i.e., onde as estatisticas mudam com o tempo), uma rede neural pode ser projetada para modificar seus pesos
+sinapticos em tempo real. Como regra geral, pode-se dizer que quanto mais adaptitivo se fizer um sistema, assegurando-se de que
+o sistem se mantenha estavel, mais robusto tendera a ser o seu desempenho quando o sistema for exigido a operar em um ambiente
+nao-estacionario. Contudo, deve ser enfatizado, que a adaptabilidade nem sempre resulta em robustez; na verdade pode resultar no
+contrario. Um sistema adaptativo com constantes de tempo pequenas, por exemplo, pode se modificar rapidamente e assim tender a
+responder a pertubaçoes espurias, causando uma drastica degradaçao no desempenho do sistema. Para aproveitar todos os beneficios
+da adaptabilidade, as constantes de tempo devem ser grandes o suficiente para que o sistema ignore pertubaçoes espurias mas
+ainda assim serem suficientemente pequenas para responder a mudanças significativas no ambiente; o problema aqui descrito eh
+referido como o dilema da estabilidade-plasticidade.
+
+    4 Resposta a Evidencias: No contexto de classificaçao de padroes, uma rede neural pode ser projetada para fornecer
+informaçao nao somente sobre qual padrao particular selecionar, mas tambem sobre a confiança ou crença na decisao tomada. Esta
+ultima informaçao pode ser utilizada para rejeitar padroes ambiguos, caso eles estejam presentes, e com isso melhorar o
+desempenho de classificaçao da rede.
+
+    5 informaçao Contextual: O conhecimento eh propagado por toda a rede. Assim, cada neuronio sera afetado pela atividade de
+outro no sistema.
+
+    6 Tolerancia a Falhas: Podem ocorrer falhas fisicas no sistema (Hardware), logo, projetar uma rede que tolere essas falhas e
+saiba minimizar o estrago e dafinicaçao eh essencial.
+
+    7 Implementaçao em VLSI(very-large-scale-integration): A natureza maciçamente paralela de uma rede a faz ser potencialmente
+rapida na computaçao de certas tarefas. Esta mesma caracteristica torna uma rede neural adequada para implementaçao utilizando
+tecnologia de integraçao em escala muito ampla.
+
+    8 Uniformidade de Analise e Projeto: Basicamente, as redes neurais desfrutam de universalidade de como processadores de
+informaçao. Dizemos isso no sentido de que a mesma notaçao eh utilizada em todos os dominios envolvendo a aplicaçao de redes
+neurais. Esta caracteristica se manifesta de diferentes modos:
+        * Os neuronios, de uma forma ou de outra, representam um ingrediente comum a todas as redes neurais.
+        * Esta uniformidade torna possivel compartilhar teorias e algoritimos de aprendizagem em aplicaçoes diferentes de redes
+neurais
+        *Redes modulares podem ser construidas atraves de uma integraçao homogenea de modulos.
+
+
+1.3 MODELOS DE UM NEURONIO
+
+Um neoronio eh uma unidade de processamento de informaçoes que eh fundamental para a operaçao de uma rede neural. Aqui, nos
+identificamos tres elementos basicos de do modelo neuronal (Fig 1.5):
+
+    1. Um conjunto de sinapses ou elos de conexao, cada uma caracterizada por um peso ou força propria. Especificamente, um
+sinal Xj na enrada da sinapse j conectada ao neoronio k eh multiplicado pelo peso sinaptico Wkj. Eh importante notar a maneira
+como sao escritos os inidices do peso sinaptio Wkj: k se refere ao neironio em questao e o segundo se refere ao terminal de
+entrada da sinaps `a qual o peso se refere. O peso sinaptico de um neuronio pode estar em um intervalo que inclui valores
+negativos bem como positivos.
+
+    2.  Um somador para somar os sinais de entrada, ponderadas pelas respectivas sinapses do neuronio; as operaçoes descritas
+aqui constituem um cmbinador linear.
+
+    3. Uma funç~ao de ativaçao PHI() para restringir a amplitude da saida de um neoronio. A funçao de ativaçao tambem referida
+como funcao restritiva ja que restringe (limita) o intervalo permissivel de amplitude do sinal de saida a um valor finito.
+Tipicamente, o intervalo normalizado da amplitude de saida de um neuronio eh escrito como o intervalo unitario fechado [0,1] ou
+alternativamente [-1,1].
+
+O modelo neoronal da Fig. 1.5 inclui tambem um bias aplicado externamente, representado por Bk. O bias Bk tem o efeito de
+aumentar ou diminuir a entrada liquida da funçao de ativaçao, dependendo se ele eh positivo ou negativo, respectivamente.
+Em termos matematicos, podemos descrever um neronio k escrevendo o seguinte par de equaçoes:
+
+    Uk = SOM(Wkj * Xj)[1,j]
+
+    e Yk = PHI(Uk + Bk)
+
+    onde x1,x2,x3,...,xm sao sinais de entrada; wk1,wk2,wk3,...,wkm sao os pesos sinapticos do neoronio k; uk eh a saida do
+combinador linear devido aos sinais de entrada; bk eh o bias; PHI() eh a funçao de ativaçao; e Yk eh o sinal de saida do
+neoronio. O uso do bias Bk tem o efeito de aplicar uma transformaçao afim `a saida Uk do combinador linear do modelo da Fig.
+1.5, como mostrado por Vk = Uk + Bk;
+
+    Em particular, dependendo se  bias Bk eh positivo ou negativo, arelaçao entre o campo local induzido ou potencial de
+ativaçao Vk do neoronio k e a saida do combinador linear Uk eh modificada de forma onde a funcao Uk eh transladada.
+
+    O bias Bk eh um parametro externo do neoronio artificial k. Podemos considerar a sua presença como nas equaçoes acima.
+Equivalentemente, podemos adicionar uma nova sinapse, onde seu valor sera +1 e o peso Wk0 sera igual a Bk. Assim, temos as novas
+equaçoes:
+        Vk = SOM(Wkj * Xj)[0,j]
+        Yk = PHI(Vk)
+
+    Tipos de Funçao de Ativaçao
+
+    A funçao de ativaçao, representada por PHI(Vk), define a saida de um neuronio em termos do campo local induzido v. Aqui nos
+identificamos tres tipos basicos de funçao de ativaçao:
+        1. Funçao de Limiar. Para este tipo de funçao de ativaçao, descrito na Fig. 1.8a, temos
+
+                        / 1 se V >= 0
+            PHI(V) = |
+                        \ 0 se V < 0
+
+
+        Na literatura de engenharia, esta forma de funçao de limiar eh normalmente referido como funçao de Heaviside.
+Correspondentemente, a saida do neuronio k que emprega esta funçao de limiar eh expressa como
+
+
+                        / 1 se Vk >= 0
+            Yk =     |
+                        \ 0 se Vk < 0
+
+            Onde Vk = SUM(Wkj * Xj) + Bk
+
+        Tal neuronio eh referido na literatura como o modelo de MacCulloch-Pitts. Neste modelo, a saida de um neuronio assumo o
+valor 1, se o campo local induzido daquele neuronio eh nao-negativo, e 0 caso o contrario. Esta definiçao descreve a propriedade
+tudo-ou-nada do modelo de MacCulloch-Pitts.
+
+        2. Funçao Limiar por Partes. Nesta funçao, temos uma constancia quando Vk < -1/2 , uma linearidade quando
+        -1/2 <= Vk >= 1/2 e outra contancia quando Vk > 1/2.
+
+        Esta funçao pode ser vista como uma aproximaçao de um aplificador nao-linear. As duas situaçoes seguintes podem ser
+vistas como formas especiais da funçao linear por partes:
+            * Se a regiao linear de operaçao eh mantida sem entrar em saturaçao, surge um combinador linear.
+            * A funçao linear por partes se reduz `a funçao de limiar, se o fator de amplificaçao da regiao linear eh feito
+infinitamente grande.
+
+        3. Funçao Sigmoide. A funçao sigmoide, cujo grafico tem forma de 's', eh de longe a forma mais comum de funçao de
+ativaçao utilizada na construçao de redes neurais artificiais. Ela eh definida como uma funçao estritamente crescente que exibe
+um balanceamento adequado entre comportamento linear e nao-linear. Um exmplo de funçao sigmoide eh a funçao logistica, definida
+por
+            PHI(Vk) = 1/(1 + exp(-aVk))
+        Onde a eh o parametro de inclinaçao da funçao sigmoide. Variando-se o parametro a, obtemos funçaoes digmoides com
+diferentes inclinaçoes. Outra vantagem, eh que a funçao sigmoide eh diferenciavel, um fator muito importante da teoria de redes
+neurais.
+
+        As funçoes de ativaçao apresentadas fvariam de 0 a +1, oporem as vezes eh desejavel que a funçao varia de -1 a +1;
+        A funçao tangente hiperbolica cumpre muito bem este papel.
+
+Modelo Estocastico de um Neoronio
+
+    O modelo neural definido na Fig 1.7 eh deterministico ja que o seu comportamento de entrada-saida eh definido precisamente
+para todas as entradas. Para algumas aplicaçes de redes neurais, eh desejavel que a analise seja baseada em um modelo neoronal
+estocastico. Em uma abordagem analiticamente tratavel, eh dada uma terpretaçao probabilistica `a funçao de ativaçao do modelo de
+MacCulloch-Pitts. Mais especificamente, permite-se que um neoronio assuma apenas um de dois estados: +1 ou -1, por exemplo. A
+decisao de disparar u neoronio(i.e., mudar seu estado de "desligado" para "ligado") eh probabilistica. Considere que x
+represente o estado do neuronio e P(v) represente a probabilidade de disparar, nde v eh o campo local induzido do neuronio. Nos
+podemos entao escrever
+
+        x = [+1 com probabilidade P(v)] ou [-1 com probabilidade 1 - P(v)]
+
+    Uma escolha padrao para P(v) seria uma funçao de forma sigmoide.
+        P(v) = 1/(1 + exp(-v/T))
+
+    Onde T eh uma pseudotemperatura que eh utilizada para controlar o nivel de ruido e portanto a incerteza de disparar. Eh
+importante perceber, entretanto, que T nao eh a temperatura fisica de uma rede neural, seja ela uma rede neural biologica ou
+artificial. Em vez disso, como ja mencionado, nos devemos considerar T meramente como um parametro que controla flutuaçoes
+termicas que representam o efeito do ruido sinaptico. Note que quando T --> 0, o neuronio estocastico descrito se reduz a uma
+forma sem ruido(i.e., deterministica), que eh o modelo de McCulloch-Pitts.
+
+1.4 REDES NEURAIS COMO GRAFOS ORIENTADOS
+
+O diagrama de locos apresentados fornecem uma descriçao funcional dos varios elementos que constituem o modelo de um neuronio
+artificial. Nos podemos simplificar a aparencia do modelo utilizando a ideia de grafos de fluxo de sinal sem sacrificar
+quaisquer detalhes do modelo. Os grafos de fluxo de sinal juntamente com um conjunto bem-definido de regras foram desenvolvidos
+originalmente por Mason para redes lineares. A presença de nao-linearidadeno modelo de um neuronio limita o escopo de sua
+aplicaçao `as redes neurais. Apesar disso, os grafos de fluxo de sinal fornecem um metodo elegante para retratar o fluxo dos
+sinais em uma rede neural, que eh o nosso objetivo nesta seçao.
+    Um grafo de fluxo de sinal eh uma rede de elos(ramos) orientados que sao interligados em certos pontos chamados de nos. Um
+no tipico j tem um sinal nodal Xj associado. Um elo orientado tipico origina-se no no j e termina no no k; ele tem uma funçao de
+transferencia ou transmitancia associada que especifica a maneira pela qual sinal Yk no no k depende do sinal Xj no no j. O
+fluxo de sinais nas diversas partes do grafo eh ditado por tres regras basicas:
+
+        REGRA 1. Um sinal flui ao longo de um elo somento no sentido definido pela seta do elo:
+            Dois tipos de elos podem ser definidos:
+                * Elos sinapticos, cujo comportamento eh governado por uma relaçao de entrada-saida linear. Especificamente, o
+sinal nodal xj eh multiplicado pelo peso sinaptico Wkj para produzir o sinal nodal Yk:
+
+                            Wkj
+                    Xj º----->-----º Yk = Wkj * Xj
+
+
+                * Elos de ativaçao, cujo comportamento eh governado em geral por uma relaçao de entrada-saida nao-linear. Onde a
+funçao PHI(.) eh a funçao de ativaçao nao-linear:
+
+                            PHI(.)
+                    Xj º----->-----º Yk = PHI(Xj)
+
+        REGRA 2. Um sinal nodal eh igual a soma algebrica de todos os sinais que entram no no pertinente via os elos incidentes.
+
+            ------Yi->-\
+                        \
+                            ° Yk = Yi + Yj
+                        /
+            ------Yj->-/
+
+        REGRA 3. O sinal em um no eh transmitido para cada elo de saida originario deste no, sendo a transmissao inteiramente
+independente das funçoes de transferencia dos elos de saida.
+
+                -->---Xj------
+            /
+        Xj °                                  Este fenomeno recebe o nome de divergencia sinaptica ou fan-out.
+            \
+                -->---Xj------
+
+        Utilizando estas regras, pdemos construir, por exemplo, o grafo de fluxo de sinal da Fig. 1.10 como modelo de um
+neuronio.
+
+
+    O estado de um neronio pode ser definido em termos do seu campo local induzido ou de seu sinal de saida.
+        Um grafo orientado assim defindo eh completo no sentido de ele descrever nao somente o fluxo de sinal de neuronio
+    para neoronio, mas tambem o fluxo de sinal dentro de cada neuronio. Entretando, quando o foco de atençao eh restrito ao
+fluxo de sinal de neuronio para nauronio, podemos utilizar uma forma reduzida deste grafo, omitinod os detalhes do fluxo de
+sinal no interior dos neuronios individuais. Este grafo eh chamado de parcialmente completo. Ele eh caracterizado como segue:
+
+        1. Nos de fonte fornecem sinais de netrada para o grafo.
+        2. Cada neuronio eh representado por um unico no chamado de no computacional
+        3. Os elos de comunicaçao que conectam os nos de fonte aos nos computacionais do grafo nao carregam pesos; eles
+meramenre fornecem direçoes de fluxo de sinal no grafo.
+
+    Um grafo orientado parcialmente completo definido desta forma eh referido como um grafo arquitetural, que descreve a planta
+da rede neural. O no computacional de um neoronio eh mostrado circular e cinza enqanto que o no de fonte eh mostrado como um
+pequeno quadrado.
+
+    Portanto, existem tres frmas de representar uma rede neural:
+        * Diagrama de blocos, que fornece uma descriçao funcional da rede.
+        * Grafo de fluxo de sinal, que fornece uma decriçao completa do fluxo de sinal da rede.
+        * Grafo arquitetural, que descreve a planta da rede.
+
+1.5 REALIMENTAÇAO
+
+Dizemos que existe realimentaçao em um sistema dinamico sempre quando a saida de um elemento do sistema influencia em parte a
+entrada aplicada `aquele elemento particular, originando assim um ou mais de um caminho fechado para transmissao de sinais em
+torno do sistema. Na verdade, a realimentaçao ocorre em quase todas as partes do sistema nervoso de todos os animais. Alem
+disso, ela desempenha um papel importante no estudo de uma classe especial de redes neurais conhecidas como redes recorrentes.
+Um exemplo de um sistema de realimentaçao unico:
+
+                            X'j(n)  A
+           Xj(n) °---->----°-------->--------° Yk(n)
+                            \               /                (Fig. 1.12)
+                            -------<-------
+                                    B
+
+        Onde Xj(n) representa o sinal de entrada, o X'j(n) representa o sinal interno e o sinal de saida Yk(n). Todos sao
+funçoes da variavel de tempo discreto n. Assume-se que o sistema seja linear, constituindo de um caminho direto e de um caminho
+de realimentaçao que sao caracterizados pelos "operadores" A e B, respectivamente. Em particular, a saida do canal direto
+determina em parte sua propria saida atraves do canal de realimentaçao. Da Fig. 1.12 notamos as seguintes relaçoes de
+entrada-saida:
+
+                    Yk(n) = A[X'j(n)]
+                    X'j(n) = Xj(n) + B[Yk(n)]
+
+                    Logo : Yk(n) = ( A/(1-AB) )[Xj(n)]
+                Referimo-nos ca A/(1-AB) como o operador de laço fechado do sistema, e a AB como operador de laço aberto. Em
+geral, o operador de laço aberto nao eh comutativo no sentido de que BA != AB.
+
+        Considere, por exemplo, o sistema realimentado de laço unico onde A tem um peso fixo, w, e B eh um operador de atraso
+unitario, z = Z^(-1), cuja saida esta atrasada em relaçao `a entrada em uma unidade de tempo. Podemos entao expressar o operador
+de laço fechado do sistema como
+                A/(1 - AB) = w*(1 - wz)^(-1)
+
+
+                Yk(n) = SUM(w^(l + 1)*Xj(n-l))[0,inf+]
+            Vemos claramente que o comportamento dinamico do sistema eh controlado pelo peso W. Em particular, podemos
+distinguir dois casos especificos:
+                1. |W|<1, para o qual o sistema de saida yk(n) eh exponencialemnte convergente; isto eh, o sistema eh estavel. O
+Yk(n) tendera a zeo quando n --> inf+
+                2. |W|>=1, para o qual o sinal de saida Yk(n) eh divergente; isto eh, o sistema eh instavel. |w| = 1 resulta em
+uma linearidade e |W| > 1 resulta em uma exponencial;
+
+        A estabilidade tem papel de destaque no estudo de sistemas realimentados.
+            O caso de |W| corresponde a um sistema com memoria infinita no sentido de a saida do sistema depender das
+        amostras da entrada que se estendem sobre o passado infinito. Alem disso, a memoria eh esvaecente ja que a influencia de
+uma  amostra passada se reduz exponencialmente com o tempo n.
+            A analise do comportamento dinamico das redes neurais envolvendo a aplicaçao de realimentaçao infelizmente
+        eh complicada pelo fato de as unidades de processamento utilizadas para construir a rede serem geralmente nao-lineares.
+
+1.6 ARQUITETURAS DE REDE
+
+A maneira pela qual os neuronios de uma rede neural estao estruturados esta intimamente ligada com o algoritimo de aprendizagem
+utilizado para treinar a rede. Podemos, portanto, falar de algoritimos (regras) de aprendizagem utilizados no projeto de redes
+neurais como sendo estruturados. Em geral, podemos classificar tres classes de arquiteturas de rede fundamentalmente diferentes:
+
+1. Redes Alimentadas Adiante com Camada Unica
+
+    Em uma rede neural em camadas, os neuronios estao organizados na forma de camadas. Na fomra mais de simples de uma rede em
+camadas, temos uma camada de entrada de nos de fonte que se projeta sobre uma camada de saida de neuronios (nos computacionais),
+mas nao vice-versa. Em outras palavras, a rede eh estritamente do tipo alimentada adiant eou aciclica:
+
+
+                        (Fig. 1.15)
+
+2. Redes Alimentadas Diretamente com Multiplas Camadas
+
+    A segunda classe de uma rede neural adiante se distingue pela presença de uma ou mais camadas ocultas, cujos nos
+    computacionais sao chamados correspondentemente de neuronios ocultos ou unidades ocultas. A funçao dos neuronios ocultos
+    eh intervir entre a entrada externa e a saida da rede de uma maneira util. Adicionando-se uma ou mais camadas ocultas,
+    tornamos a rede capaz de extrair estatisticas de ordem elevada. Em um sentido bastante livre, a rede adquire uma
+    perspectiva global apesar de sua conectividade local, devido ao conjunto de conexoes sinapticas e da dimensao extra de
+    interaçoes neurais. A habilidade de os neuronios ocultos extrairem estatisticas de ordem elevada eh particularmente
+    valiosa quando o tamanho da camada de entrada eh grande.
+        Os nos de fonte da camada de entrada da rede fornecem os respectivos elementos do padrao de ativaçao (vetor de
+    entrada), que constituem os sinais de entrada aplicados aos neuronios (nos computacionais) na segunda camada (i.e.,primeira
+camada oculta). Os sinais de entrada da segunda camada sao utilizados como etradas para a terceira camada, e assim por diante
+para o resto da rede. Tipicamente, os neuronios em cada camada da rede tem como suas entradas apenas os sinais de saida da
+camada precedente. O conjunto de sinais de saida dos neuronios da camada de saida (final) da rede constitui a resposta global da
+rede para o padrao de ativaçao fornecido pelos nos de fonte da camada de entrada (primeira). O grafo da Fig. 1.16 ilustra a
+planta d euma rede neural de multiplas camadas alimentada adiante para o caso de uma unica camada oculta. Por concisao, a rede
+na Fig. 1.16 eh referida como uma rede 10-4-2 porque ela tem 10 neuronios de fonte, 4 neuronios ocultos e 2 de saida. Como um
+outro exemplo, uma rede alimentada adiante com m nos de fonte, h1 neuronios na primeira camada oculta, h2 neuronios na segunda
+camda oculta e q neuronios na camada de saida eh referida como uma rede m-h1-h2-1.
+        A rede neural da Fig 1.16 eh dita totalmente conectada, no sentido de que cada um dos nos de uma camada da rede esta
+conectado a todos os nos da camda subsequente. Entretanto, se alguns dos elos de comunicaçao (conexoes sinapticas) estiverem
+faltando na rede, dizemos que a rede eh parcialmente conectada.
+
+3. Redes Recorrentes
+
+    Uma rede neural recorrente, se distingue de uma rede neural alimentada adiante por ter pleo menos um laço de
+realimentaçao. Uma rede recorrente pode consistir, por exemplo, de uma unica camada de neuronios com cada neuronio alimentando
+seu sinal de saida de volta para as entradas de todos os outros neuronios, como ilustrado na Fig. 1.17. Na estrutura
+representada nesta figura, nao ha laços de auto-realimentaçao na rede; auto-relaimentaçao se refere a uma situaçao onde a saida
+de um neuronio eh realimentada para sua propria entrada. A rede recorrente ilustrada na figura 1.17 tambem nao tem neuronios
+ocultos. Na Fig. 1.18 ilustramos outra classe de redes recorrentes com neuronios ocultos. As conexoes de realimentaçao
+mostradas na figura 1.18 se originam dos neuronios ocultos bem como dos neurnios de saida.
+    A presença de laços de realimentaçao tem um impacto profundo na capacidade de aprendizagem da rede e no seu desempenho.
+Alem disso, os laços de realimentaçao envolvem o uso de ramos particulares compostos de elementos de atraso unitario(
+representados por Z^(-1)), o que resulta em um comportamento dinamico nao-linear, adimitindo-se que a rede neural contenha
+unidades nao-lineares.
+
+
+
+                                            1.7 REPRESENTAÇAO DO CONHECIMENTO
+
+                "Conhecimento se refere `a informaçao armazenada ou a modelos utilizados por uma pessoa ou maquina
+                para interpretar, prever e responder apropriadamente ao mundo exterior"
+
+Sao duas as principais caracteristicas da representaçao do conhecimento: (1) que informaçao eh realmente tornada explicita;
+e (2) como a informaçao eh codificada fisicamente para o uso subsequente. Portanto, pela sua propria natureza, a representaçao
+do conhecimento eh direcionada a um objetivo. Em aplicaçoes do mundo real de maquinca "inteligentes", podemos dizer que uma boa
+soluçao depende de uma boa representaçao do conhecimento. Assim tambem o eh com as redes neurais que representam uma classe
+especial de maquinas inteligentes. Tipicamente, entretanto, as formas possiveis de representaçao desde as entradas ate os
+parametros internos da rede sao muito diversificadas, o que tende a tornar o desenvolvimento de uma soluçao satisfatoria
+utilizadno uma rede neural um desafio real de projeto.
+Uma tarefa importante para uma rede neural eh aprender um modelo do mundo (ambiente) no qual ela esta inserida e manter o
+modelo suficientemente consistente com o mundo real de maneira a atingir os objetivos especificados da aplicaçao de interesse.
+O conhecimento do mundo consiste de dois tipos de informaçao:
+
+1. O estado conhecido do mundo, representado pelos fatos sobre o que eh e o que era conhecido; esta forma de conhecimento eh
+chamada de informaçao previa.
+2. As observaçoes (medidas) do mundo, obtidas por meio de sensores proketados para sondar o ambiente no qual a redeneural deve
+operar. Normalmente, essas informaçoes sao inerentemente ruidosas, sendo sujeitas a erros devido a ruido do sensor e
+imperfeiçoes do sistema. De qualquer maneira, as observaçoes que sao assi obtidas fornecem o conjunto de informaçoes de onde
+sao retirados os exemplos utilizados para treinar a rede neural.
+
+Os exemplos podem ser rotulados ou nao-rotulados. Nos exemplos rotulados , cada exemplo que representa um sinal de entrada eh
+associado a uma resposta desejada corresponde (i.e, saida-alvo). Por outro lado, os exemplos nao-rotulados consistem de
+ocorrencias diferentes dos proprios sinais de entrada. De qualquer maneiara, um conjunto de exemplos, rotulados ou nao,
+representa o conhecimento acerca do ambiente de interesse que uma rede neural pode aprender atraves de treinamento.
+    Um conjunto de pares de entrada-saida, com cada par consistindo de um sinal de entrada e a resposta desejada
+correspondente, eh referido como um conjunto de dados de treinamento ou amostra de treinamento. Para ilustrar como este
+conjunto de dados pode ser utilizado, considere, por exemplo, o problema do reconhecimento de um digito manuscrito. Neste
+problema, o sinal de entrada coniste de uma imagem com pixels (elementos da imagem) pretos ou brancos, com cada imagem
+representando um dos 10 digitos que estao bem separados no fundo. A resposta desejada eh definida pela "identidade" do digito
+particular cuja imagem eh representada para a rede como o sinal de entrada. Tipicamente, a amostra de treinamento consiste de
+uma grande vairedade de digitos manuscritos que sao representativos de uma situaçao do mundo real. Dado esse conjunto de
+exemplos, o projeto de uma rede neural pode prosseguir como segue:
+
+    * Primeiro, uma arquitetura apropriada eh selecionada para a rede neural, com uma camada de entrada consisitindo de nos de
+fonte iguais em numero aos pixels de uma imagem de entrada, e uma camada de saida consistindo de 10 neuronios (um para cada
+digito). Um subconjunto de exemplos eh entao utilizado para treinar a rede por meio de um algoritimo apropriado. Esta fase da
+rede eh chamada de aprendizagem.
+    * Segundo, o desempenho de reconhecimento da rede treinada eh testado com dados nao apresentados anteriormente.
+Especificamente, uma imagem de entrada eh apresentada para a rede, mas desta vez nao lhe eh fornecida a identidade do digito,
+que corresponde a esta imagem particular. O desempenho da rede eh entao estimado comparando-se o reconhecimento do digito
+fornecido pela rede com a real identidade do digito em questao. Esta segunda fase da operaçao da rede eh chamada de
+generalizaçao.
+
+Aqui se encontra uma diferença fundamental entre o projeto de uma rede neural e o de sua contrapartida, o processamento de
+informaçao classico (classificaçao de padroes). Neste ultimo caso, normalmente procedemos primeiramente formulando um modelo
+matematico das observaçoes do ambiente, validando o modelo com dados reais, e entao estruturando o projeto com base neste
+modelo. O projeto de uma rede neural, ao contrario, eh baseado diretamente nos dados do mundo real, permitindo-se que o
+conjunto de dados fale por si mesmo. Assim, a rede neural nao somente fornece o modelo implicito do ambiente no qual ela esta
+inserida, como tambem realiza a funçao de processamento de informaçao de interesse.
+    Os exemplos utilizados para treinar uma rede neural podem consistir tanto de exemplos positiovos como de exemplos
+negativos. Em um problema de detecçao passiva de sonar, por exemplo, os exemplos positiovos sao relativos aos dados de
+treinamento de entrada que contem o alvo de interesse. Agora, em um ambiente de sonar passivo, sabe-se que a presença eventual
+de vida marinha nos dados de teste causa alarmes falsos ocasionais. Para atenuar este problema, ensinar a rede a nao confundir
+a vida marinha com o alvo.
+    Em uma rede neural com uma arquitetura especifica, a representaçao do conhecimento do meio ambiente eh definida pelos
+valores assumidos pelos parametros livres (i.e., pesos sinapticos e bias) da rede. A forma dessa representaçao do conhecimento
+constitui o verdadeiro projeto da rede neural, e portanto eh a chave para seu desempenho.
+    Entretanto, o tema da representaçao do conhecimento no interior de uma rede artificial eh muito complicado. Apesar disso,
+existem quatro regras para a representaçao do conhecimento que sao de senso comum.
+
+    REGRA 1. Entradas similares de classes similares normalmente devem produzir representaçoes similares no interior da rede, e
+portanto devem ser classificadas como pertencentes `a mesma categoria (classe).
+
+        Ha uma profusao de medidas para determinar a "similaridade" entre entradas. Uma medida de similaridade usada
+    frequentemente eh baseada no conceito de distancia euclidiana. Para sermos especificos, considere que Xi represente um vetor
+    m-por-1
+            Xi = [xi1,xi2,...,xim]^T
+    cujos elementos sao todos numeros reais;  indice superior T indica a transposiçao matricial. O vetor Xi define um pont em
+    um espaço de dimensao m chamado espaço euclidiano e representado por R^m. A distancia euclidiana entre um par de vetores m
+    por 1, Xi e Xj eh definida por
+
+        d(Xi, Xj) = ||Xi - Xj || = [SUM((xik - xjk)^2)[1,m]]^(1/2)
+
+        Outra medida de similaridade eh baseada na ideia de um produto escalar ou produto interno que tambem eh tomada
+    emprestada na algebra matricial. Dado um par de vetores Xi e Xj de mesma dimensao, o seu produto interno eh (Xi^T)(Xj), que
+    na forma expandida eh escrito como segue:
+
+        (Xi, Xj) = SUM( xik * xjk )[1,m]
+
+        dividindo-se o produto interno por ||Xi|*|Xj|| obtemos o cosseno do angulo entre os vetores. Quanot maior o produto
+interno, mais similares os vetores se parecerao.
+
+        A distancia euclidiana  eo produto interno descritos aqui estao definidos em termos deterministicos. O que acontece
+quando os vetores Xi e Xj sao retirados de duas populaçoes (fontes) diferentes? Para sermos especificos, suponha que a
+diferença entre essas duas populaçoes esteja somente nos seu vetores medios. Considere que Ui e Uj representem os valores
+medios dos vetores Xi e Xj, respectivamente. Isto eh,
+
+            Ui = E[Xi],
+onde E eh o operador estatistico esperado. O vetor medio Uj eh definido de forma similar. Como uma medida de distancia entre
+duas populaçoes, podemos utilizar a distancia de Mahalanobis, representada por Dij. O quadrado do valor dessa distancia de Xi
+para Xj eh definido por
+
+        (Eq. 1.27, Pg. 52)
+
+    REGRA 2. Devem ser atribuidas representaçoes bem diferentes na rede a itens que devem ser categorizados como classes
+    separadas.
+
+    REGRA 3. Se uma caracteristica particular eh importante, entao deve haver um grande numero de neuronios envolvidos na
+    representaçao daquele item na rede.
+
+        Considere, por exemplo, uma aplicaçao de radar envolvendo a detecçao de um alvo (p.ex., uma aeronave) na presena de
+    pertubaçoes (i.e., reflexoes de radar por alvos indesejaveis como edificios, arvores e formacoes metereologicas). O
+    desempenho da detecçao deste sistema de radar eh medido em termos de duas probabilidades:
+
+        * Probabilidade de detecçao, definida como a probabilidade de o sistema decidir que o alvo esta presente, quando ele
+          realmente esta.
+        * Probabilidade de alarme falso, definida como a probabilidade de o sistema decidir que um alvo esta presente, quando
+          na realidade ele nao esta.
+
+    De acordo com o criterio de Neyman-Pearson, a probabilidade de detecçao eh maximizada, sujeita `a retriçao de que a
+    probabilidade de alarme falso nao exceda um determinado valor. Nesta aplicaçao , a presença real de um alvo no sinal
+    recebido representa uma caracteristica importante da entrada. Na verdade, a Regra 3 afirma que deve haver um grande numero
+    de neuronios envolvidos na tomada de decisao se um alvo esta presente, quando ele realmente estiver. Pelo mesmo motivo,
+    deve haver um grande numero de neuronios envolvidos na tomada de decisao se a entrada consiste apenas de pertubaçoes,
+    quando realmente este for o caso. Em ambas as situaçoes o grande numero de neuronios assegura um elevado grau de
+    precisao na tomada de decisao e tolerancia em relaçao a neuronios defeituosos.
+
+
+    REGRA 4. Informaçao previa e invariancias devem ser incorporadas no projeto de uma rede neural, simplificando com isso o
+    projeto da rede por nao ter que aprende-las.
+
+        A Regra 4 eh particularmente importante porque a aderencia adequada a ela resulta em uma rede neural com uma estrutura
+    especializada (restrita). Isto eh altamente desejavel por varias razoes:
+        1. Sabe-se que as rede biologicas visuais e auditivas sao muito especializadas.
+        2. Uma rede neural com estrutura especializada normlamente tem um numero menor de parametros livres disponiveis para
+           ajuste do que uma rede totalmente conectada. Consequentemente, a rede especializada requer um menor conjunto de
+           dados para treinamento, aprende mais rapido e frequentemente generaliza melhor.
+        3. A taxa de transmissao de informaçao atraves de uma rede especializada (i.e., produtividade da rede) eh acelerada.
+        4. O custo de construçao de uma rede eh reduzido por causa do seu tamanho menor, quando comparado com a rede totalmente
+           conectada equivalente.
+
+                            Como Incorporar Informaçao Previa no Projeto de uma Rede Neural
+
+Uma questao importante a ser tratada, evidentemente, eh como desenvolver uma estrutura especializada incorporando informaçao
+previa no seu projeto. Infelizmente, nao ha regras bem-definidas para fazer isso, temos alguns procedimentos Ad-hoc quesabemos
+que produzem resultados uteis. Particularmente, podemos utilizar uma combinaçao de duas tecnicas:
+
+    1. Restringir a arquitetura da rede pelo uso de conexoes locais reconhecidas como campos receptivos.
+    2. Restringir a escolha de pesos sinapticos atraves do uso de compartilhamento de pesos.
+
+Estas duas tecnicas, particularmente a ultima, tem um beneficio marginal vantajoso : o numero de parametros livres da rede eh
+reduzido significamente.
+    Para sermos mais especificos, considere a rede alimentada adiante parcialmente conectada da Fig. 1.20. Esta rede tem uma
+arquitetura por construçao. Os sei primeiros nos de fonte constituem o campo receptivo para o neuronio oculto 1 e assim por
+diante para os outros neuronios ocultos na rede.Para satisfazer a restriçao de compartilhamento de pesoss, apenas devemos
+utilizar o mesmo conjunto de pesos sinapticos para cada um dos neuronios da camada oculta da rede. Entao, para o exemplo
+mostrado na Fig. 1.20 com sei conexoes locais por neuronio oculto j como segue o somatorio (Eq. 1.29). Esta equaçao esta na
+forma de uma soma convolutiva. Eh por este motivo que uma rede alimentada adiante utilizando conexoes locais e pesos
+compartilhados da forma aqui descrita eh conhecida como rede convolutiva.
+
+
+                            Como Incorporar Invariancias no Projeto de uma Rede Neural
+
+Considere os seguintes fenomenos fisicos:
+
+    * Quando um objeto de interesse sofre rotaçao, o modo como a imagem do objeto eh percebida por um observador normlmente
+    mude de forma correspondente.
+    * Em um radar coerente que fornece informaçao tanto de amplitude como de fase sobre o seu meio ambiente, o eco vindo de um
+    alvo movel eh deslocado em frequencia pelo efeito Doppler que surge.
+    * A locuçao de uma pessoa pode ser feita em uma voz baixa ou alta, e de maneira lenta ou rapida.
+
+Para construir um sistema de detecçao de objetos, um sistema de reconhecimento de alvos de radar e um sistema de reconhecimento
+de voz que possa lidar com estes fenomenos, respectivamente, o sistema deve ser capaz de lidar com uma serie de transformaçoes
+do sinal observado. Consequentemente, um requisito fundamental para o reconhecimento de padroeseh projetar um classificador que
+seja invariante a tais transformaçoes. Em outras palavras, uma estimativa de classe representada por uma saida do
+classificador nao deve ser afetada pelas transformaçoes do sinal observado aplicado `a entrada do classificador.
+    Existem pelo menos tres tecnicas para implementar uma rede neural do tipo classificador invariante a transformaçoes:
+
+1.Invariancia_por_Estrutura. A invariancia pode ser imposta `a rede neural estruturando apropriadamente o seu projeto. Mais
+especificamente, as conexoes sinapticas entre os neuronios da rede sao criadas de forma que versoes transformadas da mesma
+entrada sejam forçadas a produzir a mesma saida. Considere, por exemplo, a classificaçao de uma imagem por uma rede neural com
+a exigencia de ela ser independente a rotaçoes no plano da imagem, em torno do seu centro. Podemos impor invarancia rotacional
+na estrutura da rede da seguinte forma. Seja Wij o peso sinaptico do neuronio j conectado ao pixel i da imagem de entrada. Se
+forçarmos a condiçao Wji = Wjk para todos os pixels i e k que se encontrarem a distancias iguais dos centro da imagem, entao a
+rede neural sera invariante a rotaçoes no plano. Entretanto, para que seja mantida a invariancia rotacional, o peso sinaptico
+Wji deve ser duplicado para todo pixel da imagem de entrada `a mesma distancia radial da origem. Isto causa uma desvantagem de
+invariancia por estrutura: o numero de conexoes sinapticas da rede neural se torna proibitivamente grande mesmo para imagens de
+tamanho moderado.
+2.Invariancia_por_Treinamento. Uma rede neural tem uma habilidade natural para classificar padroes. Esta habilidade pode ser
+explorada diretamente para obter invariancia a transformaçoes da forma descrita a seguir. A rede eh treinada apresentando-se em
+numeros de exemplos diferentes do mesmo objeto, sendo os exemplos escolhidos para corresponder a diferentes transformaçoes
+(i.e., vistas de aspectos diferentes) do objeto. Desde que o numero de exemplos seja suficientemente grande e que a rede seja
+treinada para aprender a discriminar as vistas de aspectos diferentes do objeto, podemos entao esperar que a rede generalize
+corretamente para outras transformaçoes que nas as apresentadas durante o treinamento. Entretanto, por uma perspectiva de
+engenharia, a invariancia por treinamento tem duas desvantagens. Primeiro, quando a rede neural foi treinada para reconhecer um
+objeto de maneira invariante em relaçao a transformaçoes conhecidas, nao eh obvio que este treinamento tambem capacitara a rede
+a reconhecer outros objetos de  classes diferentes, de maneira igualmente invariante. Segundo, o esforço computacional imposto
+`a rede pode ser demasiadamente severo para se lidar, especialmente se a dimensionalidade do espaço de caracteristicas for
+elevada.
+3.Espaço_de_Caracteristicas Invariantes.A terceira tecnica de criar uma rede neural invariante do tipo classificador esta
+ilustrada na figura 1.21.
+
+
+                       | Extrator de    |    | Rede neural  |
+            Entrada -->| caracteristicas|--->|   do tipo    |----> Estimativa de classe    (Fig. 1.21)
+                       | invariante     |    | classificador|
+
+Ela se baseia na premissa de que pode ser possivel se extrair caracteristicas que caracterizem o conteudo essencial da
+informaçao de um conjunto de dados de entreda que sejam invariantes a transformaçoes das entradas. Se tais caracteristicas
+forem utilizadas, entao a rede como um classificador eh aliviada do fardo de ter que delinear o intervalo de transformaçoes de
+um objeto com fronteiras de decisao complicadas. Na verdade, as unicas diferenças que podem aparecer entre exemplos diferentes
+do mesmo objeto devem-se a fatores inevitaveis como ruido e oclusao. A utilizaçao de um espaço de caracteristicas invariantes
+oferece tres vantagens distintas. Primeiro, o numero de caracteristicas aplicadas `a rede pode ser reduzido a niveis realistas.
+Segundo, as exigencias impostas ao projeto da rede sao relaxadas. Terceiro, eh assegurada a invariancia para todos os objetos
+em relaçao a transformaçoes conhecidas. Entretanto, para que ela funcione, esta abordagem requer conhecimento previo do
+problema.
+
+    Concluindo, o uso de um espaço de caracteristicas invariantes, como aqui descrito, pode proporcionar uma tecnica muito
+adequada para classificadores neurais.
+
+
+
+1.8 INTELIGENCIA ARTIFICIAL E REDES NEURAIS
+
+Ha varias definiçoes para inteligencias artificiais, uma delas eh que o seu objetivo eh o desenvolvimento de paradigmas ou
+algoritimos que requeiram maquinas oara realizar tarefas cognitivas, para quais os seres humanos sao atualmente melhores.
+    Um sistema de Ia deve ser capaz de realizar tres coisas: (1) armazenar conhecimento, (2) aplicar o conhecimento armazenado
+para resolver porblemas e (3) adquirir novo conhecimento atraves da experiencia. Um sistema de IA tem tres componentes
+fundamentais:
+
+1. Representaçao. Provavelmente, a caracteristica ais distintiva da IA seja o uso difundido de uma linguagem de estruturas
+simbolicas para representar tanto o conhecimento generico sobre um dominio do problema de interesse como o conhecimento
+especifico sobre a soluçao do problema. Os simbolos sao normalmente formulados em termos familiares, o que torna as
+representaçoes simbolicas da IA relativamente faceis de serem entendidas por um usuario humano comum. De fato, a clareza da IA
+simbolica a torna bastante adequada para a comunicaçao homem-maquina.
+
+2.Raciocinio. Na sua forma mais basica, raciocinio eh a habilidade de resolver problemas.
+        * O sistema deve ser capaz de expressar e resolver uma vasta gama de problemas e tipos de problemas
+        * O sistema deve ser capaz de tornar conhecidas para ele tanto a informaçao explicita como a informaçao implicita.
+        * O sistema deve ter um mecanismo de controle que determine quais operaçoes devem ser aplicadas para um problema
+          particular, uqando a soluçao deste problema for obtida, ou quando deve ser encerrado o tratamento deste problema.
+
+3. Aprendizagem. No modelo mais simples de aprendizagem de maquina representado abaixo:
+
+        |          |        | ELEMENTO DE  |        | BASE DE      |         | ELEMENTO DE |
+        | AMBIENTE | --->---| APRENDIZAGEM | --->---| CONHECIMENTO | ---->---| DESEMPENHO  |
+        |          |        |              |        |              |         |             |
+             ^                                                                      |
+             |                                                                      |
+              --------------<--------------------<------------------------<----------
+
+O ambiete fornece alguma informaçao para um elemento de aprendizagem. O elemento de aprendizagem utiliza, entao, esta
+informaçao para perfeiçoar a base de conhecimento, e finalmente o elemento de desempenho utiliza a base de conhecimento para
+executar a sua tarefa. Normalmente, a informaçao que o ambiente fornece para a maquina eh imperfeita, resultando que o elemento
+de desempenho nao sabe previamente como preencher os detalhes ausentes ou ignorar s detalhes que nao sao importantes. Portanto,
+a maquina opera inicialmente por suposiçao e d  epois recebe realimentaçao do elemento do desempenho. O mecanismo de
+realimentaçao permite que a maquina avalie suas hipoteses e as revisa, se necessario.
+    A aprendizagem de maquina envolve dois tipos bastante diferenetes de processamento de informaçoes: o indutivo e o dedutivo.
+No processamento de informaçao indutivo, padroes gerais e regras sao determinados a partir dos dados brutos e da experiencia.
+Por outro lado, no processamento de informaçao dedutivo sao utilizadas regras gerais para determinar fatos especificos. A
+aprendizagem baseada em similaridade utiliza induçao, euqnato que a prova de um teorema eh uma deduçao baseada em axiomas
+conhecidos e em outros teoremas existentes. A aprendizagem baseada em explanaçao utiliza tanto induçao como deduçao.
