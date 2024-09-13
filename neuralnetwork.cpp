@@ -2,6 +2,9 @@
 #include <vector>
 #include <cmath>
 
+const int m = 2;
+const int width = 500;
+
 
 std::vector<std::vector<float>> matrixSum(std::vector<std::vector<float>> A, std::vector<std::vector<float>> B);
 std::vector<std::vector<float>> matrixSum(std::vector<std::vector<float>> A, std::vector<std::vector<float>> B){
@@ -115,19 +118,52 @@ std::vector<std::vector<float>> createMemoryMatrix(std::vector<std::vector<std::
 }
 
 
+bool f1(int x, int y);
+bool f1(int x, int y){
+    return(x*x + y*y < 100);
+}
+
+
+bool f2(int x, int y);
+bool f2(int x, int y){
+    x -= 40;
+    y -= 40; 
+    return (x*x + y*y < 100);
+}
+
+
+void fillData(std::vector<std::vector<std::vector<float>>>& entradas, std::vector<std::vector<std::vector<float>>>& saidasEsperadas);
+void fillData(std::vector<std::vector<std::vector<float>>>& entradas, std::vector<std::vector<std::vector<float>>>& saidasEsperadas){
+    
+    for(float x = 0.0 ; x < width; x++){
+        for(float y = 0.0; y < width; y++){
+            if(f1(x,y)){
+                saidasEsperadas.push_back({{0}});
+                entradas.push_back(matrixTranspose({{x,y}}));
+            }else if(f2(x,y)){
+                saidasEsperadas.push_back({{1}});
+                entradas.push_back(matrixTranspose({{x,y}}));
+            }
+        }       
+    }
+    
+}
+
+
+
 int main(){
 
-     std::vector<std::vector<std::vector<float>>> X = {
-        {{1.0,0.0,0.0,0.0}},
-        {{0.0,1.0,0.0,0.0}},
-        {{0.0,0.0,1.0,0.0}}
-    };
-    std::vector<std::vector<std::vector<float>>> Y = {
-        {{5.0,1.0,0.0}},  
-        {{-2.0,1.0,6.0}},
-        {{-2.0,4.0,3.0}}
-    };
+    std::vector<std::vector<float>> v = matrixTranspose({{0,1,0,0,1,0}});
+    std::vector<std::vector<std::vector<float>>> entradas;
+    std::vector<std::vector<std::vector<float>>> saidasEsperadas;
+    std::vector<std::vector<float>> W = matrixTranspose({std::vector<float>(m+1, 0)});
+    fillData(entradas, saidasEsperadas); //This function will fill create some data using the funciotns f1 and f2
 
-    distanceBetweenVectors({-1,2,3}, {1,2,3});
+    for(int tempo = 0; tempo < entradas.size(); tempo ++){
+        
+    }    
+    
+
+
     return 0;
 }
