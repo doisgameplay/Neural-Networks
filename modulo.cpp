@@ -2,7 +2,7 @@
 #include "module.h"
 #include <cmath>
 
-std::vector<std::vector<float>> matrixSum(std::vector<std::vector<float>> A, std::vector<std::vector<float>> B);
+
 std::vector<std::vector<float>> matrixSum(std::vector<std::vector<float>> A, std::vector<std::vector<float>> B){
     int numLines = A.size();
     int numColumns = B[0].size();
@@ -18,7 +18,7 @@ std::vector<std::vector<float>> matrixSum(std::vector<std::vector<float>> A, std
 }
 
 
-std::vector<std::vector<float>> matrixOpposite(std::vector<std::vector<float>> A);
+
 std::vector<std::vector<float>> matrixOpposite(std::vector<std::vector<float>> A){
     for(auto& line : A){
         for(auto& element : line){
@@ -29,7 +29,7 @@ std::vector<std::vector<float>> matrixOpposite(std::vector<std::vector<float>> A
 }
 
 
-std::vector<std::vector<float>> matrixTranspose(std::vector<std::vector<float>> A);
+
 std::vector<std::vector<float>> matrixTranspose(std::vector<std::vector<float>> A){
     int numLines = A.size();
     int numColumns = A[0].size();
@@ -45,7 +45,7 @@ std::vector<std::vector<float>> matrixTranspose(std::vector<std::vector<float>> 
 }
 
 
-std::vector<std::vector<float>> matrixMultiplication(std::vector<std::vector<float>> A, std::vector<std::vector<float>> B);
+
 std::vector<std::vector<float>> matrixMultiplication(std::vector<std::vector<float>> A, std::vector<std::vector<float>> B){
     
     int numLines = A.size();
@@ -65,7 +65,7 @@ std::vector<std::vector<float>> matrixMultiplication(std::vector<std::vector<flo
 }
 
 
-void showMatrix(std::vector<std::vector<float>> matrix);
+
 void showMatrix(std::vector<std::vector<float>> matrix){
  
     for(auto line : matrix){
@@ -77,7 +77,7 @@ void showMatrix(std::vector<std::vector<float>> matrix){
 }
 
 
-float EuclidianNorm(std::vector<float> v);
+
 float EuclidianNorm(std::vector<float> v){
     float norm = 0.0f;
     for(auto element : v ){
@@ -90,7 +90,7 @@ float EuclidianNorm(std::vector<float> v){
 }
 
 
-float distanceBetweenVectors(std::vector<float> a, std::vector<float> b);
+
 float distanceBetweenVectors(std::vector<float> a, std::vector<float> b){
     float distance = 0.0f;
     distance = EuclidianNorm(matrixSum({a}, matrixOpposite({b}))[0]);
@@ -98,7 +98,7 @@ float distanceBetweenVectors(std::vector<float> a, std::vector<float> b){
 }
 
 
-std::vector<std::vector<float>> createMemoryMatrix(std::vector<std::vector<std::vector<float>>> X, std::vector<std::vector<std::vector<float>>> Y);
+
 std::vector<std::vector<float>> createMemoryMatrix(std::vector<std::vector<std::vector<float>>> X, std::vector<std::vector<std::vector<float>>> Y){
  
     //filling the memoryMatrix with zeros:
@@ -114,7 +114,7 @@ std::vector<std::vector<float>> createMemoryMatrix(std::vector<std::vector<std::
 }
 
 
-std::vector<std::vector<float>> matrixScalar(std::vector<std::vector<float>> A, float scalar);
+
 std::vector<std::vector<float>> matrixScalar(std::vector<std::vector<float>> A, float scalar){
     for(auto& line: A){
         for(auto& element : line){

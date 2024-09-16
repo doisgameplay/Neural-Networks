@@ -8,7 +8,7 @@
 
 const int m = 2;
 const int width = 60;
-const float n = 1;
+const float n = 2;
 
 
 bool f1(int x, int y);
@@ -83,8 +83,8 @@ int main(){
         float v = matrixMultiplication(matrixTranspose(W), entradas[tempo])[0][0];
         std::cout<<"W :: ";
         showMatrix(matrixTranspose(W));
-        W = matrixSum(W, matrixScalar(entradas[tempo], n*(saidasEsperadas[tempo][0][0] - y)));       
         int y = sinal(v);
+        W = matrixSum(W, matrixScalar(entradas[tempo], n*(saidasEsperadas[tempo][0][0] - y)));       
         //showMatrix(matrixMultiplication(matrixTranspose(W), entradas[tempo]));
         //std::cout<<"W :: ";
         //showMatrix(matrixTranspose(W));
