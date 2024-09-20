@@ -4,11 +4,12 @@
 #include <algorithm>
 #include <random>
 #include <utility>  
-#include "module.h  "
+#include "module.h"
 
 const int m = 2;
 const int width = 60;
 const float n = 2;
+const float step = 1;
 
 
 bool f1(int x, int y);
@@ -30,8 +31,8 @@ bool f2(int x, int y){
 void fillData(std::vector<std::vector<std::vector<float>>>& entradas, std::vector<std::vector<std::vector<float>>>& saidasEsperadas);
 void fillData(std::vector<std::vector<std::vector<float>>>& entradas, std::vector<std::vector<std::vector<float>>>& saidasEsperadas){
     
-    for(float x = 0.0 ; x < width; x+= 0.01){
-        for(float y = 0.0; y < width; y+= 0.01){
+    for(float x = 0.0 ; x < width; x+= step){
+        for(float y = 0.0; y < width; y+= step){
             if(f1(x,y)){
                 saidasEsperadas.push_back({{1}});
                 entradas.push_back(matrixTranspose({{1,x,y}}));
@@ -79,12 +80,13 @@ int main(){
     }
 
     for(int tempo = 0; tempo < entradas.size(); tempo ++){
-        std::cout<<"passo: "<<tempo<<std::endl;
         float v = matrixMultiplication(matrixTranspose(W), entradas[tempo])[0][0];
-        std::cout<<"W :: ";
-        showMatrix(matrixTranspose(W));
         int y = sinal(v);
         W = matrixSum(W, matrixScalar(entradas[tempo], n*(saidasEsperadas[tempo][0][0] - y)));       
+        
+        //std::cout<<"W :: ";
+        //showMatrix(matrixTranspose(W));
+        //std::cout<<"passo: "<<tempo<<std::endl;
         //showMatrix(matrixMultiplication(matrixTranspose(W), entradas[tempo]));
         //std::cout<<"W :: ";
         //showMatrix(matrixTranspose(W));
@@ -97,7 +99,8 @@ int main(){
         //    showMatrix(matrixTranspose(W));
         //}
         //std::cout<<std::endl<<std::endl;
-    }    
+    }   
+    showMatrix(matrixTranspose(W)); 
 
     return 0;
 }
