@@ -5,6 +5,7 @@
 #include <random>
 #include <utility>  
 #include "module.h"
+<<<<<<< HEAD
 #include <SFML/Graphics.hpp>
 
 const int m = 2;
@@ -12,6 +13,13 @@ const int width = 1000;
 const float n = 10.f;
 const float step = 1.f;
 const int loops = 100*step;
+=======
+
+const int m = 2;
+const int width = 60;
+const float n = 2;
+const float step = 1;
+>>>>>>> main
 
 
 bool f1(int x, int y);
@@ -34,7 +42,11 @@ void fillData(std::vector<std::vector<std::vector<float>>>& entradas, std::vecto
 void fillData(std::vector<std::vector<std::vector<float>>>& entradas, std::vector<std::vector<std::vector<float>>>& saidasEsperadas){
     
     for(float x = 0.0 ; x < width; x+= step){
+<<<<<<< HEAD
         for(float y = 0.0; y < width/2; y+= step){
+=======
+        for(float y = 0.0; y < width; y+= step){
+>>>>>>> main
             if(f1(x,y)){
                 saidasEsperadas.push_back({{1}});
                 entradas.push_back(matrixTranspose({{1,x,y}}));
@@ -82,11 +94,21 @@ int main(){
         saidasEsperadas [i] = pares[i].second;
     }
 
+<<<<<<< HEAD
     for(int tempo2 = 0; tempo2 < entradas.size()*loops; tempo2 ++){
        // int tempo = tempo2 % entradas.size();
        // float v = matrixMultiplication(matrixTranspose(W), entradas[tempo])[0][0];
        // int y = sinal(v);
        // W = matrixSum(W, matrixScalar(entradas[tempo], n*(saidasEsperadas[tempo][0][0] - y)));       
+=======
+    for(int tempo = 0; tempo < entradas.size(); tempo ++){
+        float v = matrixMultiplication(matrixTranspose(W), entradas[tempo])[0][0];
+        int y = sinal(v);
+        W = matrixSum(W, matrixScalar(entradas[tempo], n*(saidasEsperadas[tempo][0][0] - y)));       
+        
+        //std::cout<<"W :: ";
+        //showMatrix(matrixTranspose(W));
+>>>>>>> main
         //std::cout<<"passo: "<<tempo<<std::endl;
         //showMatrix(matrixMultiplication(matrixTranspose(W), entradas[tempo]));
         //std::cout<<"W :: ";
@@ -100,7 +122,8 @@ int main(){
         //    showMatrix(matrixTranspose(W));
         //}
         //std::cout<<std::endl<<std::endl;
-    }    
+    }   
+    showMatrix(matrixTranspose(W)); 
 
         
 
